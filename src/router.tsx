@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
+import MainLayout from "./layout/MainLayout";
 
 const ROUTES = [
   {
@@ -17,7 +18,13 @@ const ROUTES = [
   },
   {
     path: "/dashboard",
-    element: <div>Dashboard</div>,
+    element: <MainLayout />,
+    children: [
+      {
+        path: "",
+        element: <p className="font-bold">Some Dashboard Content</p>,
+      },
+    ],
   },
 ];
 
