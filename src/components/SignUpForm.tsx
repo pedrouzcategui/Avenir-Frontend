@@ -5,13 +5,17 @@ import FormControl from "./FormControl";
 import Label from "./Label";
 import { Link } from "react-router-dom";
 
-interface LoginFormState {
+interface SignUpFormState {
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
 }
 
-export default function LoginForm() {
-  const [formData, setFormData] = useState<LoginFormState>({
+export default function SignUpForm() {
+  const [formData, setFormData] = useState<SignUpFormState>({
+    firstName: "",
+    lastName: "",
     email: "",
     password: "",
   });
@@ -35,6 +39,32 @@ export default function LoginForm() {
 
   return (
     <form onSubmit={handleFormSubmission}>
+      <div className="grid grid-cols-2 gap-2">
+        <FormControl>
+          <Label name={"firstName"}>Nombre</Label>
+          <Input
+            type="text"
+            name="firstName"
+            placeholder="Bruce"
+            value={formData.firstName}
+            onChangeFunction={handleFormInputsChange}
+            className="w-full"
+            required
+          />
+        </FormControl>
+        <FormControl>
+          <Label name={"lastName"}>Apellido</Label>
+          <Input
+            type="text"
+            name="lastName"
+            placeholder="Wayne"
+            value={formData.lastName}
+            onChangeFunction={handleFormInputsChange}
+            className="w-full"
+            required
+          />
+        </FormControl>
+      </div>
       <FormControl>
         <Label name={"email"}>Email</Label>
         <Input
@@ -61,13 +91,13 @@ export default function LoginForm() {
       </FormControl>
       <FormControl>
         <Button type="submit" className="w-full">
-          Login
+          Create Account
         </Button>
       </FormControl>
       <hr />
       <div className="flex justify-center gap-1 mt-2">
-        <p>You don't have an account?</p>
-        <Link to={"/signup"}>Sign Up For Free!</Link>
+        <p>Already have an account?</p>
+        <Link to={"/login"}>Login instead!</Link>
       </div>
     </form>
   );
