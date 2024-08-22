@@ -118,8 +118,13 @@ function NavOption({
       </li>
       {doMoreNavigationOptionsExist && isOpen && (
         <ul>
-          {subNavigationOptions.map(({ title, Icon }) => (
-            <NavOption className="ml-4 mb-0" title={title} Icon={Icon} />
+          {subNavigationOptions.map(({ title, Icon }, i) => (
+            <NavOption
+              key={i}
+              className="ml-4 mb-0"
+              title={title}
+              Icon={Icon}
+            />
           ))}
         </ul>
       )}
@@ -146,18 +151,20 @@ export default function Sidebar() {
       <ul>
         {SIDEBAR_DESCRIPTION.map(({ title, navigation_options }, i) => (
           <NavSection
-            key={title}
+            key={i}
             title={title}
             isFinal={i == SIDEBAR_DESCRIPTION.length - 1}
           >
-            {navigation_options.map(({ title, Icon, subNavigationOptions }) => (
-              <NavOption
-                key={title}
-                Icon={Icon}
-                title={title}
-                subNavigationOptions={subNavigationOptions}
-              />
-            ))}
+            {navigation_options.map(
+              ({ title, Icon, subNavigationOptions }, i) => (
+                <NavOption
+                  key={`${title}-${i}`}
+                  Icon={Icon}
+                  title={title}
+                  subNavigationOptions={subNavigationOptions}
+                />
+              )
+            )}
           </NavSection>
         ))}
       </ul>
