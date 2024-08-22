@@ -1,6 +1,7 @@
 import { ColumnDef } from "@tanstack/react-table";
 import BaseTable from "./BaseTable";
 import Badge from "../Badge";
+import { formatNumberToUSDDollars } from "../../utils";
 
 type Operation = {
   id: string;
@@ -10,7 +11,7 @@ type Operation = {
   type: "income" | "expense";
 };
 
-const operationColumns: ColumnDef<Operation>[] = [
+const operationColumns: ColumnDef<Operation, any>[] = [
   {
     accessorKey: "id",
     header: "ID",
@@ -32,14 +33,9 @@ const operationColumns: ColumnDef<Operation>[] = [
     cell: (info) => <Badge>{info.row.original.type}</Badge>,
   },
   {
-    accessorKey: "participant",
-    header: "Beneficiario/Remitente",
-    cell: (info) => info.getValue(),
-  },
-  {
     accessorKey: "amount",
     header: "Monto",
-    cell: (info) => info.getValue(),
+    cell: (info) => <span>{formatNumberToUSDDollars(info.getValue())}</span>,
   },
 ];
 
@@ -54,7 +50,7 @@ const SAMPLE_OPERATIONS: Operation[] = [
   {
     id: crypto.randomUUID(),
     date: "2024-08-21",
-    participant: "Hoff Marketing LLC",
+    participant: "Hoff Marketing LLC 22",
     amount: 2500,
     type: "income",
   },
