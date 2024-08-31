@@ -2,6 +2,8 @@ import { ColumnDef } from "@tanstack/react-table";
 import BaseTable from "./BaseTable";
 import Badge from "../Badge";
 import { formatNumberToUSDDollars } from "../../utils";
+import { useQuery } from "@tanstack/react-query";
+import { getOperations } from "../../api/operations";
 
 type Operation = {
   id: string;
@@ -57,5 +59,10 @@ const SAMPLE_OPERATIONS: Operation[] = [
 ];
 
 export default function OperationsTable() {
+  const { data } = useQuery({
+    queryKey: ["operations"],
+    queryFn: getOperations,
+  });
+
   return <BaseTable columns={operationColumns} data={SAMPLE_OPERATIONS} />;
 }
